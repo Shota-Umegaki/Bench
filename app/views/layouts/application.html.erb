@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Bench</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script src="https://kit.fontawesome.com/e0a3ec5935.js" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+  <header>
+   <h1>Bench</h1>
+   
+   <div class="header-list">
+    <ul>
+    <li><%= link_to "Top page", posts_path %></li>
+    <li><%= link_to "投稿", new_post_path %></li>
+    <% if user_signed_in? %>
+    <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+    <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+   <% else %>
+    <li><%= link_to "新規登録", new_user_registration_path %></li>
+    <li><%= link_to "ログイン", new_user_session_path %></li>
+   <% end %>
+    </ul>
+   </div>
+  </header>
+  <main>
+   <%= yield %>
+  </main>
+  
+  <footer>
+      <p>©仮決めフッター.</p>
+  </footer>
+
+ </body>
+</html>

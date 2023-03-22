@@ -1,0 +1,51 @@
+<div class="background">   #1
+<h1>Bench</h1>
+<link rel="stylesheet" href="index.css">
+
+<h3>投稿を検索</h3>
+ <div class="search"> #2
+ <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+ </div>#2
+
+<%= button_to "新規投稿へ", new_post_path %>
+
+<div class="posts-container">#3
+<h4>投稿一覧</h4>
+  <% @posts.each do |t| %>
+  <div class="post">#4
+<div class="p">#5
+  <%= image_tag t.user.image_url, size: "250x200" if t.user.image? %>
+  <figure class="image"><%= image_tag t.image_url, size: "250x200" if t.image? %></figure>
+  <div class="text">#6
+  <%= link_to t.user.name, user_path(t.user.id) %>  
+  <%= t.user.email %> 
+    <%= t.name %>
+    <%= t.about %>
+    <%= t.image %>
+  </div>#6
+</div>#4か5のどれか
+
+    <% if user_signed_in? %>
+      <% if current_user.already_liked?(t) %>
+          <%= link_to post_like_path(id: t.id, post_id: t.id), method: :delete do %>
+            <i class="fa-solid fa-heart"></i><%= t.likes.count %>
+          <% end %>
+      <% else %>
+          <%= link_to post_likes_path(id: t.id, post_id: t.id), method: :post do %>
+            <i class="fa-solid fa-heart"></i><%= t.likes.count %>
+          <% end %>
+      <% end %>
+  <% else %>
+  <i class="fa-solid fa-heart"></i><%= t.likes.count %>
+  <% end %>
+
+    <%= link_to "詳細へ", post_path(t.id) %> 
+    <%= link_to "編集する", edit_post_path(t.id) %>
+    <%= button_to "削除する", post_path(t.id), method: :delete %>
+  </div>#4
+  <% end %>
+</div>#3
+</div>#1

@@ -1,0 +1,16 @@
+<%= form_for @post do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name, :size => 140 %> 
+
+    <div class="field">
+    <%= f.label :about %>
+    <%= f.text_field :about, :size => 140 %>
+    </div>
+
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+    <%= f.submit "編集する" %>
+  <% end %>
+  
